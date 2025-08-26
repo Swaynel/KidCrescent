@@ -1,0 +1,31 @@
+{
+  "name": "kid-crescent",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@stripe/stripe-js": "^4.4.0",
+    "firebase": "^12.1.0",
+    "framer-motion": "^11.3.21",
+    "lucide-react": "^0.424.0",
+    "next": "^15.5.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-share": "^5.1.0",
+    "stripe": "^16.8.0",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.4.1"
+  }
+}

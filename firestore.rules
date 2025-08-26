@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{collection}/{document} {
+      allow read: if collection in ['releases', 'tracks', 'gallery', 'blog', 'events'];
+      allow write: if isAdmin();
+    }
+    
+    match /contactSubmissions/{document} {
+      allow read: if isAdmin();
+      allow create: if true;
+      allow update, delete: if isAdmin();
+    }
+    
+    match /newsletterSubscribers/{document} {
+      allow read: if isAdmin();
+      allow create: if true;
+      allow update, delete: if isAdmin();
+    }
+    
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if isAdmin();
+    }
+    
+    match /plays/{document} {
+      allow read: if isAdmin();
+      allow create: if true;
+    }
+    
+    match /products/{document} {
+      allow read: true;
+      allow write: if isAdmin();
+    }
+
+    match /orders/{document} {
+      allow read: if isAdmin() or request.auth.uid == document.userId;
+      allow create: true;
+      allow update: if isAdmin();
+    }
+
+    match /playlists/{document} {
+      allow read, write: if request.auth.uid == document.userId;
+      allow read: if isAdmin();
+    }
+
+    match /releases/{releaseId}/comments/{commentId} {
+      allow read: true;
+      allow create: if request.auth != null;
+      allow update, delete: if isAdmin() or request.auth.uid == document.userId;
+    }
+    
+    function isAdmin() {
+      return request.auth != null && 
+             request.auth.token.role == 'admin';
+    }
+  }
+}
